@@ -38,7 +38,7 @@ public class PetTypeFormatter implements Formatter<PetType> {
 
 	private final OwnerRepository owners;
 
-	@Autowired
+	@Autowired // 생략이 가능함, IOC(DI)
 	public PetTypeFormatter(OwnerRepository owners) {
 		this.owners = owners;
 	}

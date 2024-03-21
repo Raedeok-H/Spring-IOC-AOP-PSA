@@ -49,6 +49,8 @@ class OwnerController {
 
 	private final OwnerRepository owners;
 
+	// 생성자 한개라 @Autowired 생략가능 -> IOC(자신이 아닌 스프링으로부터 주입을 받고 있다)
+	// 생성자 주입의 방법(그 외에 setter주입, 필드 주입이 있지만 잘 쓰지않는다.)
 	public OwnerController(OwnerRepository clinicService) {
 		this.owners = clinicService;
 	}

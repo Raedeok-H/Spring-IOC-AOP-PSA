@@ -43,7 +43,7 @@ class VisitController {
 
 	public VisitController(OwnerRepository owners) {
 		this.owners = owners;
-	}
+	} //의존성 주입
 
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
