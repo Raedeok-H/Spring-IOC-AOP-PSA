@@ -23,6 +23,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StopWatch;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,9 +68,22 @@ class OwnerController {
 
 	@GetMapping("/owners/new")
 	public String initCreationForm(Map<String, Object> model) {
+		// AOP는 아래 코드들처럼 반복적으로 여러곳에서 쓰이는 코드들을 묶는 개념이다.
+		// AOP를 적용하면 아래 코드들을 작성하지 않고 작성 한 것처럼 동작하게 한다.
+		// AOP 적용시, 컴파일된 *.class 파일 실행시, 메모리에 올리는 과정에서 AspectJ라는 것을 이용하여 바이트 코드를 조작하여 코드가 있는 것처럼 한다.
+		// +추가로, 프록시는 디자인패턴중 하나인 프록시 패턴을 사용하여 AOP와 같은 효과를 내는 방법이다.
+
+//		StopWatch stopWatch = new StopWatch();
+//		stopWatch.start();
+
 		Owner owner = new Owner();
 		model.put("owner", owner);
+
+//		stopWatch.stop();
+//		System.out.println(stopWatch.prettyPrint());
+
 		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+
 	}
 
 	@PostMapping("/owners/new")

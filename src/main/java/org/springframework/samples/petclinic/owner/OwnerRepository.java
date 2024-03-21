@@ -54,7 +54,7 @@ public interface OwnerRepository extends Repository<Owner, Integer> {
 	 */
 
 	@Query("SELECT DISTINCT owner FROM Owner owner left join  owner.pets WHERE owner.lastName LIKE :lastName% ")
-	@Transactional(readOnly = true)
+	@Transactional(readOnly = true) // 해당 애너테이션은 스프링의 AOP기반으로 만들어진 애너테이션이다.
 	Page<Owner> findByLastName(@Param("lastName") String lastName, Pageable pageable);
 
 	@Query("SELECT DISTINCT owner FROM Owner owner left join  owner.pets WHERE owner.firstName LIKE %:firstName% ") // 주의 -> :앞에 와일드카드 주어야함
