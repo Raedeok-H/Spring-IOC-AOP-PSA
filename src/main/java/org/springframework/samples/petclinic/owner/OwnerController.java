@@ -67,7 +67,7 @@ class OwnerController {
 		return ownerId == null ? new Owner() : this.owners.findById(ownerId);
 	}
 
-	@GetMapping("/owners/new")
+	@GetMapping("/owners/new") // PSA: 개발자가 서블릿 API와 같은 저수준의 세부사항에서 벗어나 도메인 로직에 집중할 수 있음
 	@LogExecutionTime
 	public String initCreationForm(Map<String, Object> model) {
 		// AOP는 아래 코드들처럼 반복적으로 여러곳에서 쓰이는 코드들을 묶는 개념이다.

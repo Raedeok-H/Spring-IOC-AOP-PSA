@@ -42,7 +42,16 @@ public interface OwnerRepository extends Repository<Owner, Integer> {
 	 * @return a Collection of {@link PetType}s.
 	 */
 	@Query("SELECT ptype FROM PetType ptype ORDER BY ptype.name")
-	@Transactional(readOnly = true)
+	@Transactional(readOnly = true) // PSA: psa의 대표적인 예로,
+	//  @Transactional 어노테이션을 선언하는 것 만으로 별도의 코드 추가 없이 내부적으로 트랜잭션 코드가 추상화되어 숨겨져 있는 것.
+	//  이렇게 추상화 계층을 사용하여 어떤 기술을 내부에 숨기고 개발자에게 편의성을 제공해주는 것이 서비스 추상화(Service Abstraction)이다.
+
+	// jdbc나 jpa로 db에 접근한다 했을 때, 어떠한 경우라도 @Transactional 애노태이션을 이용하면 트랜잭션 유지 기능을 추가할 수 있다.
+	// 하나의 추상화로 여러 서비스를 묵어둔 것을 Spring에서 Portable Service Abstaction(PSA)라고 한다.
+
+
+	// 특정 기술이나 프레임워크 등에 종속되지 않으며, 코드를 변경하지 않고 다른 기술이나 프레임워크로 바꿀 수 있다 ->> Portable
+	// PSA는 이처럼 일관된 프로그래밍 모델을 제공하여, 다양한 기술 스택 및 환경에서도 유연하고 효율적인 애플리케이션 개발을 가능하게 함.
 	List<PetType> findPetTypes();
 
 	/**
