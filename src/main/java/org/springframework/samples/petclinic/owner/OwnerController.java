@@ -62,11 +62,13 @@ class OwnerController {
 	}
 
 	@ModelAttribute("owner")
+	@LogExecutionTime // 어디에 적용할지 표시해두는 용도뿐임.
 	public Owner findOwner(@PathVariable(name = "ownerId", required = false) Integer ownerId) {
 		return ownerId == null ? new Owner() : this.owners.findById(ownerId);
 	}
 
 	@GetMapping("/owners/new")
+	@LogExecutionTime
 	public String initCreationForm(Map<String, Object> model) {
 		// AOP는 아래 코드들처럼 반복적으로 여러곳에서 쓰이는 코드들을 묶는 개념이다.
 		// AOP를 적용하면 아래 코드들을 작성하지 않고 작성 한 것처럼 동작하게 한다.
@@ -87,6 +89,7 @@ class OwnerController {
 	}
 
 	@PostMapping("/owners/new")
+	@LogExecutionTime
 	public String processCreationForm(@Valid Owner owner, BindingResult result, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			redirectAttributes.addFlashAttribute("error", "There was an error in creating the owner.");
@@ -99,11 +102,13 @@ class OwnerController {
 	}
 
 	@GetMapping("/owners/find")
+	@LogExecutionTime
 	public String initFindForm() {
 		return "owners/findOwners";
 	}
 
 	@GetMapping("/owners")
+	@LogExecutionTime
 	public String processFindForm(@RequestParam(defaultValue = "1") int page, Owner owner, BindingResult result,
 			Model model) {
 		// allow parameterless GET request for /owners to return all records
@@ -153,6 +158,7 @@ class OwnerController {
 	}
 
 	@GetMapping("/owners/{ownerId}/edit")
+	@LogExecutionTime
 	public String initUpdateOwnerForm(@PathVariable("ownerId") int ownerId, Model model) {
 		Owner owner = this.owners.findById(ownerId);
 		model.addAttribute(owner);
@@ -160,6 +166,7 @@ class OwnerController {
 	}
 
 	@PostMapping("/owners/{ownerId}/edit")
+	@LogExecutionTime
 	public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result, @PathVariable("ownerId") int ownerId,
 			RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
@@ -179,6 +186,7 @@ class OwnerController {
 	 * @return a ModelMap with the model attributes for the view
 	 */
 	@GetMapping("/owners/{ownerId}")
+	@LogExecutionTime
 	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
 		ModelAndView mav = new ModelAndView("owners/ownerDetails");
 		Owner owner = this.owners.findById(ownerId);
